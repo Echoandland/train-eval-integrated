@@ -99,107 +99,23 @@ bash train_math_qwen3_4b_grpo_purerl.sh
 # Math domain - Weighted creativity (4B model)
 bash train_math_qwen3_4b_grpo_weighted_mul.sh
 
-# Math domain - 8B model
+# Math domain - Pure RL (8B model)
 bash train_math_qwen3_8b_grpo_purerl.sh
 
-# Physics domain
+# Math domain - Weighted creativity (8B model)
+bash train_math_qwen3_8b_grpo_weighted_mul.sh
+
+# Physics domain - Pure RL (4B model)
 bash train_physics_qwen3_4b_grpo_purerl.sh
-```
 
-### Quickstart: Train Qwen3 4B end-to-end (single node)
+# Physics domain - Weighted creativity (4B model)
+bash train_physics_qwen3_4b_grpo_weighted_mul.sh
 
-This is a minimal, local “smoke test” to make sure the environment, model loading, dataset reading, vLLM rollout,
-and reward computation are all wired correctly.
+# Physics domain - Pure RL (8B model)
+bash train_physics_qwen3_8b_grpo_purerl.sh
 
-#### 0) Environment
-
-- Docker: use the container command above; then run the following steps inside the container.
-- Conda: follow Option 2/3 above. For VERL/RLVR scripts, make sure `vllm` is installed.
-
-#### 1) Model path (Qwen3 4B)
-
-The training scripts read `MODEL_PATH` and default to `models/Qwen3-4B`.
-You can set it to either:
-- a **local path** containing `config.json` / tokenizer files / weights, or
-- a **HuggingFace repo id** (will download into `HF_HOME` cache).
-
-Examples:
-
-```bash
-# Local directory under this repo (recommended for offline runs)
-export MODEL_PATH="models/Qwen3-4B"
-
-# OR: HuggingFace repo id (requires HF_TOKEN for gated/private models)
-# export MODEL_PATH="Qwen/Qwen3-4B"
-```
-
-If you need to authenticate:
-
-```bash
-export HF_TOKEN="..."
-huggingface-cli login --token "$HF_TOKEN"
-```
-
-#### 2) Minimal math dataset (Parquet)
-
-The default math scripts expect `TRAIN_FILE=data/math/train.parquet` and `VAL_FILE=data/math/val.parquet`
-under `train_verl_qwen3_olmo3/`.
-
-Generate a tiny dataset:
-
-```bash
-cd train_verl_qwen3_olmo3
-python - <<'PY'
-import os
-import pandas as pd
-
-os.makedirs("data/math", exist_ok=True)
-rows = [
-  {
-    "data_source": "simplelr/gsm8k",
-    "prompt": [{"role":"user","content":"1+1=? Please output final answer in \\\\boxed{...}."}],
-    "reward_model": {"style":"rule", "ground_truth":"2"},
-  },
-  {
-    "data_source": "simplelr/gsm8k",
-    "prompt": [{"role":"user","content":"Compute 10-3. Output final answer in \\\\boxed{...}."}],
-    "reward_model": {"style":"rule", "ground_truth":"7"},
-  },
-]
-df = pd.DataFrame(rows)
-df.to_parquet("data/math/train.parquet", index=False)
-df.to_parquet("data/math/val.parquet", index=False)
-print("Wrote:", "data/math/train.parquet", "data/math/val.parquet")
-PY
-```
-
-#### 3) Run training (Qwen3 4B, math, pure RL)
-
-```bash
-cd train_verl_qwen3_olmo3/scripts
-
-# Optional: control output/cache roots
-export CKPT_ROOT="$PWD/../outputs"
-export CACHE_ROOT="$PWD/../.cache"
-
-# Optional: multi-GPU (single node)
-export N_GPUS_PER_NODE=1
-export TENSOR_MODEL_PARALLEL_SIZE=1
-
-bash train_math_qwen3_4b_grpo_purerl.sh
-```
-
-Outputs go to `train_verl_qwen3_olmo3/outputs/<EXPERIMENT_NAME>/` by default, where `EXPERIMENT_NAME` defaults to
-`qwen3_4b_math_grpo_purerl`.
-
-If you want to change data/model without editing scripts:
-
-```bash
-export MODEL_PATH="/abs/path/or/hf_repo_id"
-export TRAIN_FILE="data/math/train.parquet"
-export VAL_FILE="data/math/val.parquet"
-export EXPERIMENT_NAME="my_qwen3_4b_run"
-bash train_math_qwen3_4b_grpo_purerl.sh
+# Physics domain - Weighted creativity (8B model)
+bash train_physics_qwen3_8b_grpo_weighted_mul.sh
 ```
 
 ### OLMo3 Training (VERL/RLVR)
