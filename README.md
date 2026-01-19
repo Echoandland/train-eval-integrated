@@ -93,23 +93,11 @@ At minimum, the default Qwen3 scripts expect:
 ```bash
 cd train_verl_qwen3_olmo3/scripts
 
-# Math domain - Pure RL (4B model)
-bash train_math_qwen3_4b_grpo_purerl.sh
-
-# Math domain - Weighted creativity (4B model)
-bash train_math_qwen3_4b_grpo_weighted_mul.sh
-
 # Math domain - Pure RL (8B model)
 bash train_math_qwen3_8b_grpo_purerl.sh
 
 # Math domain - Weighted creativity (8B model)
 bash train_math_qwen3_8b_grpo_weighted_mul.sh
-
-# Physics domain - Pure RL (4B model)
-bash train_physics_qwen3_4b_grpo_purerl.sh
-
-# Physics domain - Weighted creativity (4B model)
-bash train_physics_qwen3_4b_grpo_weighted_mul.sh
 
 # Physics domain - Pure RL (8B model)
 bash train_physics_qwen3_8b_grpo_purerl.sh
@@ -129,6 +117,7 @@ bash train_math_olmo3_7b_grpo_weighted_mul.sh
 
 # Physics domain
 bash train_physics_olmo3_7b_grpo_purerl.sh
+bash train_physics_olmo3_7b_grpo_weighted_mul.sh
 ```
 
 ### Qwen2.5 Training (SimpleRL)
