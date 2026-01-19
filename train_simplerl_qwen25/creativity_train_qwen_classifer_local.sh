@@ -5,13 +5,15 @@ set -x
 ############################################
 # ===== API 配置（Stage2/3 & Stage1鉴权）=====
 ############################################
-# OpenAI (用于 Stage 2 & 3 的 o3 / 其他 Responses API)
-export OPENAI_API_KEY="REDACTED_OPENAI_API_KEY"
+# OpenAI (used for stage 2 & 3)
+# Do NOT hardcode secrets in the repo. Set OPENAI_API_KEY in your shell or .env file.
+export OPENAI_API_KEY="${OPENAI_API_KEY:-}"
 export OPENAI_GPT_MODEL="o3-mini"
 
 # DashScope 变量名被分类器代码复用为 Bearer，
-# 本脚本里用它来给 vLLM 做 --api-key 校验（本地也可用同一个 key）
-export DASHSCOPE_API_KEY="REDACTED_SECRET"
+# Used as bearer token for DashScope (and optionally as vLLM --api-key)
+# Do NOT hardcode secrets in the repo. Set DASHSCOPE_API_KEY in your shell or .env file.
+export DASHSCOPE_API_KEY="${DASHSCOPE_API_KEY:-}"
 
 # 默认仍指向 DashScope（会在 vLLM 就绪后被覆盖为本地）
 export QWEN_BASE_URL="https://dashscope-intl.aliyuncs.com/compatible-mode/v1"

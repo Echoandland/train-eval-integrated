@@ -1,12 +1,12 @@
 set -x
 
 # ===== API配置 - 新的solution_classifier_qwen_api.py需要的环境变量 =====
-# OpenAI API Key (用于Stage 2&3的o3模型)
+# OpenAI API key (for stage 2/3)
 export CUDA_VISIBLE_DEVICES=1,2
-export OPENAI_API_KEY="REDACTED_OPENAI_API_KEY"
+export OPENAI_API_KEY="${OPENAI_API_KEY:-}"
 
-# 阿里云DashScope API Key (用于Stage 1的Qwen模型) - 请替换为你的实际API Key
-export DASHSCOPE_API_KEY="REDACTED_SECRET"
+# DashScope API key (for stage 1)
+export DASHSCOPE_API_KEY="${DASHSCOPE_API_KEY:-}"
 
 # 可选：指定使用的OpenAI模型 (默认: o3-mini)
 export OPENAI_GPT_MODEL="o3-mini"
