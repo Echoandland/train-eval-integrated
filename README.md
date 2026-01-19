@@ -47,7 +47,7 @@ pip install -r requirements.txt
 # vLLM is required for VERL/RLVR training scripts by default (rollout backend = vLLM)
 pip install vllm>=0.6.3
 
-# Optional: Install Flash Attention
+# Install Flash Attention
 pip install flash-attn --no-build-isolation
 ```
 
