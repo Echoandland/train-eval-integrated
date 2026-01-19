@@ -1,0 +1,3 @@
+# vLLM for fast inference
+# Install with: pip install -r requirements/optional-vllm.txt
+vllm>=0.6.3

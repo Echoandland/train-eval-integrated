@@ -1,0 +1,95 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Testing
+.pytest_cache/
+.tox/
+.coverage
+htmlcov/
+
+# Build artifacts
+*.log
+*.out
+*.err
+
+# Slurm / PBS outputs
+slurm-*.out
+slurm-*.err
+*.sbatch
+*.pbs
+
+# Model checkpoints and outputs
+checkpoints/
+outputs/
+results/
+wandb/
+logs/
+*.ckpt
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# Cache directories
+cache/
+.cache/
+cache_pass_at_k/
+results_pass_at_k/
+detailed_results_pass_at_k/
+
+# Data (large files)
+*.parquet
+*.arrow
+*.jsonl.gz
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db

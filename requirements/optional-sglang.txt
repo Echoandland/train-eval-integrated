@@ -1,0 +1,3 @@
+# SGLang for structured generation
+# Install with: pip install -r requirements/optional-sglang.txt
+sglang>=0.1.0

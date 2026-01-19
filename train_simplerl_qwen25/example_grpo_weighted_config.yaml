@@ -1,0 +1,78 @@
+# Example configuration for using the new grpo_weighted advantage method
+# This extends the standard PPO configuration to use solution diversity weighting
+
+algorithm:
+  # Use the new grpo_weighted advantage estimator
+adv_estimator: grpo_weighted_add  # Options: 'gae', 'grpo', 'grpo_weighted_add', 'grpo_weighted_mul'
+  
+  # Enable GPT-4 based solution classification
+  enable_solution_classification: true  # Set to false to disable classification (all solutions get same weight)
+  
+  # Standard GRPO/PPO parameters
+  gamma: 1.0
+  lam: 1.0
+  kl_penalty: kl
+  
+  kl_ctrl:
+    type: adaptive  # or 'fixed'
+    kl_coef: 0.1
+    target_kl: 6.0
+    horizon: 10000
+
+# Training configuration
+trainer:
+  total_epochs: 1
+  project_name: "grpo_weighted_add_experiment"
+  experiment_name: "math_reasoning_with_diversity"
+  
+  # Logging and checkpointing
+  save_freq: 100
+  test_freq: 50
+  
+  # Resource allocation
+  nnodes: 1
+  n_gpus_per_node: 8
+
+# Data configuration
+data:
+  train_batch_size: 128  # Must be divisible by number of rollouts
+  shuffle: true
+  max_prompt_length: 2048
+  prompt_key: "prompt"
+  train_files: 
+    - "path/to/your/train/data.parquet"
+  val_files:
+    - "path/to/your/val/data.parquet"
+
+# Actor-Rollout-Reference configuration
+actor_rollout_ref:
+  rollout:
+    n: 4  # Number of responses per prompt (important for grpo_weighted)
+    
+  actor:
+    strategy: fsdp
+    ppo_mini_batch_size: 32
+    ppo_micro_batch_size_per_gpu: 4
+    
+  ref:
+    log_prob_micro_batch_size_per_gpu: 4
+
+# Critic configuration  
+critic:
+  strategy: fsdp
+  ppo_mini_batch_size: 32
+  ppo_micro_batch_size_per_gpu: 4
+
+# Model configuration
+model:
+  use_remove_padding: false
+  
+# Reward model configuration (if using model-based rewards)
+reward_model:
+  enable: false
+
+# Notes:
+# 1. The grpo_weighted_add method requires multiple responses per prompt (rollout.n > 1)
+# 2. GPT-4 classification adds computational overhead but improves diversity weighting
+# 3. Set enable_solution_classification: false for faster training without classification
+# 4. The weight_power parameter (default 0.7) controls how much diversity is encouraged 

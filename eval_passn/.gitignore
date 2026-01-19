@@ -1,0 +1,122 @@
+# Log files (ALL log files anywhere)
+*.log
+logs/
+
+# Cache directories
+cache_pass_at_k/
+cache-useless/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Results and output directories
+results_pass_at_k/
+detailed_results_pass_at_k/
+
+# Validation copies / rebuilt detailed copies (VERY large, derived artifacts)
+hle_validation_copies_*/
+physics_validation_copies_*/
+hle_llmjudge_copies/
+hle_llmjudge_newonly_*/
+hle_llmjudge_newruns_*/
+hle_qwen3_validation_copies/
+physics_detailed_copies/
+backup_broken_cache_*/
+backup_broken_detailed_*/
+backup_olmo_broken/
+
+# Large JSON files (detailed results, etc.)
+*_detailed.json
+*.detailed.json
+
+# Results JSON files (but keep config files in code directories)
+results_pass_at_k/*.json
+detailed_results_pass_at_k/*.json
+
+# Keep OlympiadBench code and data files (but not pycache)
+!OlympiadBench/
+!OlympiadBench/**/*.py
+!OlympiadBench/**/*.json
+!data/
+!data/*.jsonl
+
+# Temporary and useless directories
+useless/
+ause/
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+*.csv
+*.md
+# Test output files
+test.*.parquet
+*.parquet
+
+# Large binary files and archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# Model checkpoints and weights
+*.pt
+*.pth
+*.bin
+*.ckpt
+*.safetensors
+checkpoints/
+ckpt/
+
+# Physics evaluation results (large)
+physics/
+
+# Slurm outputs
+slurm-*.out
+slurm-*.err
+
+# OS files
+.DS_Store
+Thumbs.db
+*.bak
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# Environment files
+.env
+.venv
+env/
+venv/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# PBS job output files (with variable names)
+*.PBS_JOBID.log
+passatk_*.log
+
+# Scratch/temporary directories
+scratch/
+tmp/
+temp/
+
+# HuggingFace cache (should never be committed)
+.cache/
+
+
+# Validation copies (temporary data for validation)
+validation_copies/
+
+# Generated reports
+reports/
+
+# Generated PDF figures
+*.pdf
