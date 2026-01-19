@@ -1,6 +1,6 @@
 Unified Training and Evaluation Framework
 
-A unified framework for training and evaluating LLMs (Qwen2.5, Qwen3, OLMo3) on creativity-focused reinforcement learning tasks across Math, Physics, and Medical domains.
+A unified framework for training and evaluating LLMs (Qwen2.5, Qwen3, OLMo3) on creativity-focused reinforcement learning tasks across Math and Physics (with optional medical evaluation utilities).
 
 ## Overview
 
@@ -69,57 +69,7 @@ source .env
 
 ## Data Preparation
 
-Training and evaluation datasets should be placed in the following locations:
-
-```
-train_verl_qwen3_olmo3/data/
-├── math/
-│   ├── train.parquet      # Math training set
-│   └── val.parquet        # Math validation set (e.g., AIME24, MATH500)
-├── physics/
-│   ├── train.parquet      # Physics training set
-│   └── val.parquet        # Physics validation set
-└── medical/
-    ├── train.parquet      # Medical training set
-    └── val.parquet        # Medical validation set
-
-eval_passn/data/
-└── (evaluation datasets, e.g., OlympiadBench, MedCase)
-```
-
-### Math Domain
-
-For math training, we recommend the [Reasoning360 math dataset](https://huggingface.co/datasets/LLM360/guru-RL-92k):
-
-```bash
-cd train_verl_qwen3_olmo3/data/math
-wget https://huggingface.co/datasets/LLM360/guru-RL-92k/resolve/main/train/math__combined_54.4k.parquet -O train.parquet
-```
-
-For validation, use AIME24 and MATH500 benchmarks.
-
-### Physics Domain
-
-Physics training data should follow the same schema as math data, with physics-specific questions from MegaScience or similar sources.
-
-### Medical Domain
-
-Medical training data uses the MedReasoning/MedCase format with clinical reasoning questions.
-
-### Data Schema
-
-All training parquet files should have the following schema:
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `prompt` | list[dict] | Chat messages: `[{"role": "user", "content": "..."}]` |
-| `data_source` | string | Dataset source identifier |
-| `reward_model` | struct | Contains `ground_truth` and `style` |
-| `extra_info` | struct | Contains `answer`, `question`, `index`, etc. |
-
-### OLMo3 Data
-
-For OLMo3 models, use the `*.olmo3_clean.parquet` variants if available, which have cleaned prompts compatible with OLMo3's chat template.
+Intentionally left blank for now: datasets are currently stored locally and will be published later.
 
 ## Training
 
@@ -139,9 +89,6 @@ bash train_math_qwen3_8b_grpo_purerl.sh
 
 # Physics domain
 bash train_physics_qwen3_4b_grpo_purerl.sh
-
-# Medical domain
-bash train_medical_qwen3_4b_grpo_purerl.sh
 ```
 
 ### OLMo3 Training (VERL/RLVR)
@@ -155,9 +102,6 @@ bash train_math_olmo3_7b_grpo_weighted_mul.sh
 
 # Physics domain
 bash train_physics_olmo3_7b_grpo_purerl.sh
-
-# Medical domain
-bash train_medical_olmo3_7b_grpo_purerl.sh
 ```
 
 ### Qwen2.5 Training (SimpleRL)
@@ -220,12 +164,11 @@ zhiyuan-train-eval-integrated/
 │   │   ├── _run_grpo_local.sh   # Shared local runner
 │   │   ├── train_math_qwen3_*.sh
 │   │   ├── train_physics_qwen3_*.sh
-│   │   ├── train_medical_qwen3_*.sh
 │   │   └── train_*_olmo3_*.sh
 │   ├── recipe/                  # Domain-specific reward functions
 │   │   ├── creativity/          # Math creativity
 │   │   ├── physics/             # Physics domain
-│   │   └── medical/             # Medical domain
+│   │   └── (more domains may be added later)
 │   ├── verl/                    # VERL library
 │   └── data/                    # Training data
 │

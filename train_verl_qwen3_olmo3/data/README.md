@@ -26,16 +26,12 @@ data/
 ├── physics/
 │   ├── train.parquet
 │   └── val.parquet
-└── medical/
-    ├── train.parquet
-    └── val.parquet
 ```
 
 ## Data Sources
 
 - **Math**: OlympiadBench, MATH, GSM8K
 - **Physics**: MegaScience-Physics
-- **Medical**: MedReasoning, MedCase
 
 ## Usage
 
